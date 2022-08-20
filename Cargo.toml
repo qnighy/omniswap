@@ -3,6 +3,14 @@ name = "omniswap"
 version = "0.1.0"
 edition = "2021"
 
+authors = [
+    "Masaki Hara <ackie.h.gmai@gmail.com>",
+]
+description = "swap values between possibly-overlapping references"
+homepage = "https://github.com/qnighy/omniswap"
+repository = "https://github.com/qnighy/omniswap"
+license = "MIT OR Apache-2.0"
+keywords = ["swap", "references"]
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
