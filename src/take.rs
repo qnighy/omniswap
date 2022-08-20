@@ -1,6 +1,6 @@
-use std::cell::{Cell, RefCell};
-use std::mem;
-use std::ops::{Deref, DerefMut};
+use core::cell::{Cell, RefCell};
+use core::mem;
+use core::ops::{Deref, DerefMut};
 
 /// Takes out the value from a reference.
 ///

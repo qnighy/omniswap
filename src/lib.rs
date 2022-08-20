@@ -76,6 +76,8 @@
 //! The crate also exposes [`take!`] and [`Replace`].
 //! These are primitives used in [`swap!`] and [`rotate!`].
 
+#![no_std]
+
 mod replace;
 mod swap;
 mod take;

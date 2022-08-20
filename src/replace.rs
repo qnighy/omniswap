@@ -1,5 +1,5 @@
-use std::cell::{Cell, RefCell};
-use std::mem;
+use core::cell::{Cell, RefCell};
+use core::mem;
 
 /// Takes out the value from a reference, leaving another value you supplied.
 ///

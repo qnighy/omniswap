@@ -11,6 +11,7 @@ homepage = "https://github.com/qnighy/omniswap"
 repository = "https://github.com/qnighy/omniswap"
 license = "MIT OR Apache-2.0"
 keywords = ["swap", "references"]
+categories = ["memory-management", "no-std", "rust-patterns"]
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
