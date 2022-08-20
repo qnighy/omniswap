@@ -19,4 +19,10 @@ macro_rules! swap_cycle {
             let _ = $crate::Replace::replace($x, value);
         }
     };
+    ($x: expr) => {
+        $crate::swap_cycle!($x,)
+    };
+    ($x: expr, $($y: expr),*,) => {
+        $crate::swap_cycle!($x, $($y),*)
+    };
 }

@@ -1,6 +1,6 @@
 use std::cell::{Cell, RefCell};
 
-use omniswap::swap;
+use omniswap::{swap, swap_cycle};
 
 #[test]
 fn test_swap() {
@@ -108,5 +108,121 @@ fn test_swap_ref_cell() {
         let x = x.into_inner();
         let y = y.into_inner();
         assert_eq!((x, y), (84, 42));
+    }
+}
+
+#[test]
+fn test_swap_eval_order() {
+    let mut log = vec![];
+    let mut x = 42;
+    let mut y = 84;
+    swap!(
+        {
+            log.push(100);
+            &mut x
+        },
+        {
+            log.push(200);
+            &mut y
+        }
+    );
+    assert_eq!((x, y), (84, 42));
+    assert_eq!(log, vec![100, 200, 100]);
+}
+
+#[test]
+fn test_swap_cycle() {
+    {
+        let mut x = 42;
+        let mut y = 84;
+        swap_cycle!(&mut x, &mut y);
+        assert_eq!((x, y), (84, 42));
+    }
+    {
+        let mut x = 42;
+        let mut y = 84;
+        swap!(&mut x, &mut y,);
+        assert_eq!((x, y), (84, 42));
+    }
+
+    {
+        let mut x = 42;
+        swap_cycle!(&mut x);
+        assert_eq!(x, 42);
+    }
+    {
+        let mut x = 42;
+        swap_cycle!(&mut x,);
+        assert_eq!(x, 42);
+    }
+
+    {
+        let mut x = 1;
+        let mut y = 2;
+        let mut z = 3;
+        swap_cycle!(&mut x, &mut y, &mut z);
+        assert_eq!((x, y, z), (3, 1, 2));
+    }
+    {
+        let mut x = 1;
+        let mut y = 2;
+        let mut z = 3;
+        swap_cycle!(&mut x, &mut y, &mut z,);
+        assert_eq!((x, y, z), (3, 1, 2));
+    }
+}
+
+#[test]
+fn test_swap_cycle_eval_order() {
+    {
+        let mut log = vec![];
+        let mut x = 42;
+        let mut y = 84;
+        swap_cycle!(
+            {
+                log.push(100);
+                &mut x
+            },
+            {
+                log.push(200);
+                &mut y
+            }
+        );
+        assert_eq!((x, y), (84, 42));
+        assert_eq!(log, vec![100, 200, 100]);
+    }
+
+    {
+        let mut log = vec![];
+        let mut x = 42;
+        swap_cycle!({
+            log.push(100);
+            &mut x
+        });
+        assert_eq!(x, 42);
+        assert_eq!(log, vec![100, 100]);
+    }
+
+    {
+        let mut log = vec![];
+        let mut x = 1;
+        let mut y = 2;
+        let mut z = 3;
+        swap_cycle!(
+            {
+                log.push(100);
+                &mut x
+            },
+            {
+                log.push(200);
+                &mut y
+            },
+            {
+                log.push(300);
+                &mut z
+            }
+        );
+        assert_eq!((x, y, z), (3, 1, 2));
+        assert_eq!(log, vec![100, 200, 300, 100]);
     }
 }
