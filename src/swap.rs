@@ -1,15 +1,15 @@
 #[macro_export]
 macro_rules! swap {
     ($x: expr, $y: expr) => {
-        $crate::swap_cycle!($x, $y)
+        $crate::rotate!($x, $y)
     };
     ($x: expr, $y: expr,) => {
-        $crate::swap_cycle!($x, $y)
+        $crate::rotate!($x, $y)
     };
 }
 
 #[macro_export]
-macro_rules! swap_cycle {
+macro_rules! rotate {
     ($x: expr, $($y: expr),*) => {
         {
             let value = $crate::take!($x);
@@ -20,9 +20,9 @@ macro_rules! swap_cycle {
         }
     };
     ($x: expr) => {
-        $crate::swap_cycle!($x,)
+        $crate::rotate!($x,)
     };
     ($x: expr, $($y: expr),*,) => {
-        $crate::swap_cycle!($x, $($y),*)
+        $crate::rotate!($x, $($y),*)
     };
 }

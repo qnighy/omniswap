@@ -1,6 +1,6 @@
 use std::cell::{Cell, RefCell};
 
-use omniswap::{swap, swap_cycle};
+use omniswap::{rotate, swap};
 
 #[test]
 fn test_swap() {
@@ -135,7 +135,7 @@ fn test_swap_cycle() {
     {
         let mut x = 42;
         let mut y = 84;
-        swap_cycle!(&mut x, &mut y);
+        rotate!(&mut x, &mut y);
         assert_eq!((x, y), (84, 42));
     }
     {
@@ -147,12 +147,12 @@ fn test_swap_cycle() {
 
     {
         let mut x = 42;
-        swap_cycle!(&mut x);
+        rotate!(&mut x);
         assert_eq!(x, 42);
     }
     {
         let mut x = 42;
-        swap_cycle!(&mut x,);
+        rotate!(&mut x,);
         assert_eq!(x, 42);
     }
 
@@ -160,14 +160,14 @@ fn test_swap_cycle() {
         let mut x = 1;
         let mut y = 2;
         let mut z = 3;
-        swap_cycle!(&mut x, &mut y, &mut z);
+        rotate!(&mut x, &mut y, &mut z);
         assert_eq!((x, y, z), (3, 1, 2));
     }
     {
         let mut x = 1;
         let mut y = 2;
         let mut z = 3;
-        swap_cycle!(&mut x, &mut y, &mut z,);
+        rotate!(&mut x, &mut y, &mut z,);
         assert_eq!((x, y, z), (3, 1, 2));
     }
 }
@@ -178,7 +178,7 @@ fn test_swap_cycle_eval_order() {
         let mut log = vec![];
         let mut x = 42;
         let mut y = 84;
-        swap_cycle!(
+        rotate!(
             {
                 log.push(100);
                 &mut x
@@ -195,7 +195,7 @@ fn test_swap_cycle_eval_order() {
     {
         let mut log = vec![];
         let mut x = 42;
-        swap_cycle!({
+        rotate!({
             log.push(100);
             &mut x
         });
@@ -208,7 +208,7 @@ fn test_swap_cycle_eval_order() {
         let mut x = 1;
         let mut y = 2;
         let mut z = 3;
-        swap_cycle!(
+        rotate!(
             {
                 log.push(100);
                 &mut x
