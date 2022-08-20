@@ -10,6 +10,21 @@ let mut a = [1, 2, 3];
 std::mem::swap(&mut a[0], &mut a[2]);
 ```
 
+You get the following message:
+
+```text
+error[E0499]: cannot borrow `a[_]` as mutable more than once at a time
+ --> src/main.rs:4:31
+  |
+4 |     std::mem::swap(&mut a[0], &mut a[2]);
+  |     -------------- ---------  ^^^^^^^^^ second mutable borrow occurs here
+  |     |              |
+  |     |              first mutable borrow occurs here
+  |     first borrow later used by call
+  |
+  = help: consider using `.split_at_mut(position)` or similar method to obtain two mutable non-overlapping sub-slices
+```
+
 You can use the dedicated `<[T]>::swap` instead:
 
 ```rust
