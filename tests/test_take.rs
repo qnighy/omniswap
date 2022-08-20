@@ -3,6 +3,20 @@ use std::cell::{Cell, RefCell};
 use omniswap::take;
 
 #[test]
+fn test_take() {
+    {
+        let mut place = 42;
+        let taken = take!(&mut place);
+        assert_eq!(taken, 42);
+    }
+    {
+        let mut place = 42;
+        let taken = take!(&mut place,);
+        assert_eq!(taken, 42);
+    }
+}
+
+#[test]
 fn test_take_copy() {
     {
         // Clone + Copy + Default
