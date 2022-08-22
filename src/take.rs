@@ -21,7 +21,7 @@ use core::ops::{Deref, DerefMut};
 /// If multiple traits can apply, the behavior is determined
 /// in the following order:
 ///
-/// 1. If [`T: Copy`](std::marker::Copy) it copies the value from the seference.
+/// 1. If [`T: Copy`](std::marker::Copy) it copies the value from the reference.
 /// 2. Otherwise, if [`T: Default`](std::default::Default), it swaps the value with the default value.
 /// 3. Otherwise, if [`T: Clone`](std::clone::Clone), it clones out the value from the reference.
 ///
